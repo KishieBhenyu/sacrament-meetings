@@ -21,13 +21,12 @@ export default function HomePage() {
 
         <div className="overflow-hidden rounded-xl shadow-md">
           <Image
-            src="/images/mkoba_second.jpg"
-            alt="Church meetinghouse used by Mkoba Second Ward"
-
-            width={1200}
-            height={800}
-            className="h-auto w-full object-cover"
-            priority
+src="/images/mkoba_second.jpg"
+  alt="Church meetinghouse used by Mkoba Second Ward"
+  width={1200}
+  height={800}
+  className="h-auto w-full object-cover"
+  priority
           />
         </div>
       </section>
