@@ -1,18 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Mkoba Second Ward Sacrament Meetings",
-  description: "Sacrament meeting agendas for Mkoba Second Ward",
+  title: "Sacrament Meetings",
+  description: "Weekly sacrament meeting agendas"
 };
 
 export default function RootLayout({
@@ -22,12 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.variable} flex min-h-screen flex-col font-sans`}
-      >
+      <body>
         <Header />
 
-        <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-8">
+        <main>
           {children}
         </main>
 
