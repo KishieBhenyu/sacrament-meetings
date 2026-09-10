@@ -1,3 +1,13 @@
+import { notFound } from "next/navigation";
+import MeetingDetail from "@/components/MeetingDetail";
+import type { SacramentMeeting } from "@/lib/types";
+
+interface MeetingPageProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
+
 async function getMeeting(
   id: string
 ): Promise<SacramentMeeting | null> {
@@ -20,4 +30,18 @@ async function getMeeting(
   }
 
   return response.json();
+}
+
+export default async function MeetingPage({
+  params,
+}: MeetingPageProps) {
+  const { id } = await params;
+
+  const meeting = await getMeeting(id);
+
+  if (!meeting) {
+    notFound();
+  }
+
+  return <MeetingDetail meeting={meeting} />;
 }
