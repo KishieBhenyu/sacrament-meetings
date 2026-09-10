@@ -11,8 +11,11 @@ interface MeetingPageProps {
 async function getMeeting(
   id: string
 ): Promise<SacramentMeeting | null> {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/meetings/${id}`,
+    `${baseUrl}/api/meetings/${id}`,
     {
       cache: "no-store",
     }
