@@ -3,7 +3,7 @@ import type { SacramentMeeting } from "@/lib/types";
 
 async function getMeetings(): Promise<SacramentMeeting[]> {
   const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    process.env.NEXT_PUBLIC_BASE_URL || "https://sacrament-meetings-teal.vercel.app";
 
   const response = await fetch(`${baseUrl}/api/meetings`, {
     cache: "no-store",
