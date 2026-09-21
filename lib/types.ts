@@ -19,13 +19,13 @@ export interface SacramentMeeting {
   meetingType: "regular" | "special";
   presiding: string;
   conducting: string;
-  openingHymn: Hymn;
+  openingHymn: Hymn | null;
   openingPrayer: string;
   wardBusiness: WardBusiness[];
   stakeBusiness: boolean;
-  sacramentHymn: Hymn;
+  sacramentHymn: Hymn | null;
   speakers: Speaker[];
-  closingHymn: Hymn;
+  closingHymn: Hymn | null;
   closingPrayer: string;
   announcements: string[];
 }
