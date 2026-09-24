@@ -1,34 +1,15 @@
-import { getMeetingById } from "@/lib/meetings-db";
 
-interface RouteContext {
-  params: Promise<{
-    id: string;
-  }>;
-}
+import { getMeetings, getMeetingsByDate } from "@/lib/meetings-db";
 
-export async function GET(
-  request: Request,
-  context: RouteContext
-) {
-  const { id } = await context.params;
+export async function GET(request: Request) {
+  const date = new URL(request.url).searchParams.get("date");
 
-  const meetingId = Number(id);
-
-  if (Number.isNaN(meetingId)) {
-    return Response.json(
-      { error: "Invalid meeting ID. ID must be a number." },
-      { status: 400 }
-    );
+  if (date) {
+    const meetings = await getMeetingsByDate(date);
+    return Response.json(meetings);
   }
 
-  const meeting = getMeetingById(meetingId);
-
-  if (!meeting) {
-    return Response.json(
-      { error: "Meeting not found." },
-      { status: 404 }
-    );
-  }
-
-  return Response.json(meeting);
+  const meetings = await getMeetings();
+  return Response.json(meetings);
 }
+
