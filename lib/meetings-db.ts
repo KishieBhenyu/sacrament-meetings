@@ -1,4 +1,3 @@
-
 import { neon } from "@neondatabase/serverless";
 import { SacramentMeeting } from "@/lib/types";
 
@@ -86,7 +85,6 @@ export async function getMeetings(
   );
 }
 
-
 export async function getMeetingsByDate(
   date: string
 ): Promise<SacramentMeeting[]> {
@@ -115,9 +113,6 @@ export async function getMeetingsByDate(
     mapMeeting(row as Parameters<typeof mapMeeting>[0])
   );
 }
-
-
-
 
 export async function getMeetingsTotalPages(
   query: string = ""
@@ -171,22 +166,78 @@ export async function getMeetingById(
   );
 }
 
-// Week 04: connect these mutations to the database.
-
 export async function addMeeting(
   meeting: SacramentMeeting
 ): Promise<void> {
-  // TODO: Implement in Week 04.
+  await sql`
+    INSERT INTO meetings (
+      date,
+      meeting_type,
+      presiding,
+      conducting,
+      opening_hymn,
+      opening_prayer,
+      ward_business,
+      stake_business,
+      sacrament_hymn,
+      speakers,
+      closing_hymn,
+      closing_prayer,
+      announcements
+    )
+    VALUES (
+      ${meeting.date},
+      ${meeting.meetingType},
+      ${meeting.presiding},
+      ${meeting.conducting},
+      ${JSON.stringify(meeting.openingHymn)},
+      ${meeting.openingPrayer},
+      ${JSON.stringify(meeting.wardBusiness)},
+      ${meeting.stakeBusiness},
+      ${JSON.stringify(meeting.sacramentHymn)},
+      ${JSON.stringify(meeting.speakers)},
+      ${JSON.stringify(meeting.closingHymn)},
+      ${meeting.closingPrayer},
+      ${meeting.announcements}
+    )
+  `;
 }
 
 export async function updateMeeting(
   id: number,
   meeting: SacramentMeeting
-): Promise<void> {
-  // TODO: Implement in Week 04.
+): Promise<boolean> {
+  const result = await sql`
+    UPDATE meetings
+    SET
+      date = ${meeting.date},
+      meeting_type = ${meeting.meetingType},
+      presiding = ${meeting.presiding},
+      conducting = ${meeting.conducting},
+      opening_hymn = ${JSON.stringify(meeting.openingHymn)},
+      opening_prayer = ${meeting.openingPrayer},
+      ward_business = ${JSON.stringify(meeting.wardBusiness)},
+      stake_business = ${meeting.stakeBusiness},
+      sacrament_hymn = ${JSON.stringify(meeting.sacramentHymn)},
+      speakers = ${JSON.stringify(meeting.speakers)},
+      closing_hymn = ${JSON.stringify(meeting.closingHymn)},
+      closing_prayer = ${meeting.closingPrayer},
+      announcements = ${meeting.announcements}
+    WHERE id = ${id}
+    RETURNING id
+  `;
+
+  return result.length > 0;
 }
 
-export async function deleteMeeting(id: number): Promise<void> {
-  // TODO: Implement in Week 04.
-}
+export async function deleteMeeting(
+  id: number
+): Promise<boolean> {
+  const result = await sql`
+    DELETE FROM meetings
+    WHERE id = ${id}
+    RETURNING id
+  `;
 
+  return result.length > 0;
+}

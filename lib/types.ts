@@ -29,3 +29,8 @@ export interface SacramentMeeting {
   closingPrayer: string;
   announcements: string[];
 }
+
+export type State = {
+  message: string;
+  errors?: Record<string, string[]>;
+};
