@@ -11,8 +11,29 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Mkoba Second Ward Sacrament Meetings",
-  description: "Sacrament meeting agendas for Mkoba Second Ward",
+  metadataBase: new URL("https://sacrament-meetings-teal.vercel.app"),
+
+  title: {
+    default: "Mkoba Second Ward Sacrament Meetings",
+    template: "%s | Mkoba Second Ward",
+  },
+
+  description:
+    "View and manage sacrament meeting agendas for Mkoba Second Ward.",
+
+  openGraph: {
+    title: "Mkoba Second Ward Sacrament Meetings",
+    description:
+      "View and manage sacrament meeting agendas for Mkoba Second Ward.",
+    images: [
+      {
+        url: "/images/mkoba_second.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Mkoba Second Ward",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
